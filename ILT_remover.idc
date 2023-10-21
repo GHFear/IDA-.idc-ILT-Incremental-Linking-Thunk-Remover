@@ -233,10 +233,9 @@ static is_ILT_mutil(op_code)
     }
 }
 
-
-static main() 
+static patch_LTI()
 {
-  auto ea, func_end, func_flag, func_size;
+    auto ea, func_end, func_flag, func_size;
   
   for ( ea=get_next_func(0); ea != BADADDR; ea=get_next_func(ea))
   {
@@ -284,5 +283,26 @@ static main()
     
     Message("\n");
   }
-  
+
+    Message("DONE! :D");
+}
+
+static ShowYesNoPrompt() {
+    auto choice = AskYN(1, "Do you want to continue?");
+    Message("%d", choice);
+    return choice;
+}
+
+static main() 
+{
+    auto prompt = ShowYesNoPrompt();
+    if (prompt == 1) {
+        Message("User selected Yes.\n");
+        patch_LTI();
+    } else if (prompt == 0){
+        Message("User selected No.\n");
+    }
+    else if (prompt == -1){
+        Message("User selected Cancel.\n");
+    }
 }
